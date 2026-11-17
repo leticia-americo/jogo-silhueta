@@ -245,6 +245,12 @@ button:disabled {
   white-space: nowrap;
 }
 
+.placar {
+  margin: 0;
+  color: #f3bd72;
+  font-weight: 700;
+}
+
 .titulo-rodada {
   margin: 8px 0 0;
   font-size: clamp(1.8rem, 5vw, 2.8rem);

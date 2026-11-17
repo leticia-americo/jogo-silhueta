@@ -10,6 +10,7 @@ const elementoMensagemJogo = document.getElementById("mensagem-jogo");
 const elementoResposta = document.getElementById("resposta");
 const elementoFormResposta = document.getElementById("form-resposta");
 const elementoContadorVidas = document.getElementById("contador-vidas");
+const elementoPlacar = document.getElementById("placar");
 const elementoControlesAjuda = document.getElementById("controles-ajuda");
 const elementoDicaAtual = document.getElementById("dica-atual");
 const elementoOpcoes = document.getElementById("opcoes");
@@ -33,6 +34,7 @@ let vidasRestantes = 3;
 let rodadaEncerrada = false;
 let modoAlternativas = false;
 let indiceDica = 0;
+let acertos = 0;
 
 function mostrarCarregamento() {
   elementoCarregamento.hidden = false;
@@ -173,7 +175,13 @@ function desenharMapaMundi(paises) {
   </svg>`;
 }
 
+function atualizarPlacar() {
+  elementoPlacar.textContent = `Acertos: ${acertos}`;
+}
+
 function comecarJogo() {
+  acertos = 0;
+  atualizarPlacar();
   elementoTelaInicial.hidden = true;
   iniciarRodada();
 }
@@ -295,9 +303,13 @@ function iniciarRodada() {
 
 function terminarRodada(mensagem, tipo) {
   rodadaEncerrada = true;
+  if (tipo === "sucesso") {
+    acertos += 1;
+    atualizarPlacar();
+  }
   elementoMensagemJogo.textContent = mensagem;
   elementoMensagemJogo.className = `mensagem-jogo ${tipo}`;
-  elementoMensagemModalFim.textContent = mensagem;
+  elementoMensagemModalFim.textContent = `${mensagem} Acertos até agora: ${acertos}.`;
   elementoMensagemModalFim.className = `mensagem-modal-fim ${tipo}`;
   elementoResposta.disabled = true;
   elementoFormResposta.querySelector("button").disabled = true;
